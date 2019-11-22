@@ -38,5 +38,3 @@ def get_placa():
 	# ESCOLHE PLACA ANTIGA OU MERCOSUL
 	gerpl = (placa_gen_merc(), placa_gen_ant())
 	return random.choice(gerpl)
-	
-print(get_placa())
