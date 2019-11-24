@@ -1,0 +1,25 @@
+Estacionamento
+70 Vagas
+10 Vagas SAFE FIXA
+
+Banco
+Tabela placas
+Placa / D-H_Entrada / D-H_Saida / v_pago / N_Vaga_Uti
+
+Tabela Fidel
+N_Card_fidel / Placa   / Nome_Usua / CPF            / Cod_Fidel
+20160802     / LYS3030 / João      / 000.000.000-00 / 303019
+
+
+Tabela Nivel Fidel
+Tipo   / Perc_Desc / Cod_Fidel
+Basica / 10% Desc  / 101019
+Plus   / 20% Desc  / 202019
+Top    / 30% Desc  / 303019
+Master / 60% Desc  / 606019
+
+
+Ticket Contem:
+Placa
+Data e hora de entrada
+Número de vaga 
