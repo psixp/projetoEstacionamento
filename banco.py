@@ -11,8 +11,10 @@ class Banco:
 # tabela de placas e controle (uma para dois )
         c.execute("""create table if not exists placas(
                     placa text message_text primary key,
-                    dh_entrada text,
-                    dh_saida text,
+                    h_entrada text,
+                    h_saida text,
+                    d_entrada text,
+                    d_saida text,
                     v_pago text,
                     nv_uti text)""")
 # tabela de fidelidade de clinetes

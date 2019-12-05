@@ -3,11 +3,13 @@
 from banco import Banco
 
 class Placas(object):
-    def __init__(self, placa = "", dh_entrada = "", dh_saida = "",
-                     v_pago = 0.00, nv_uti = ""):
+    def __init__(self, placa = "", h_entrada = "", h_saida = "",
+                     d_entrada = "", d_saida = "", v_pago = 0.00, nv_uti = ""):
         self.placa = placa
-        self.dh_entrada = dh_entrada
-        self.dh_saida = dh_saida
+        self.h_entrada = h_entrada
+        self.h_saida = h_saida
+        self.d_entrada = d_entrada
+        self.d_saida = d_saida
         self.v_pago = v_pago
         self.nv_uti = nv_uti
 
@@ -18,9 +20,10 @@ class Placas(object):
 
             c = banco.conexao.cursor()
 
-            c.execute("insert into placas (placa, dh_entrada, dh_saida,"
-                      "v_pago, nv_uti) values('" + self.placa +"','"+ self.dh_entrada +"',"
-                      "'"+ self.dh_saida +"','" + self.v_pago +"','"+ self.nv_uti +"')")
+            c.execute("insert into placas (placa, h_entrada, h_saida, d_entrada, d_saida,"
+                      "v_pago, nv_uti) values('" + self.placa +"','"+ self.h_entrada +"',"
+                      "'"+ self.h_saida +"','"+ self.d_entrada +"',"
+                      "'"+ self.d_saida +"','" + self.v_pago +"','"+ self.nv_uti +"')")
 
             banco.conexao.commit()
             c.close()
@@ -45,3 +48,49 @@ class Placas(object):
         except:
             return "Ocorreu um erro na exclusão do usuário"
 
+    # ////////////////////// SELECIONAR ///////////////////////////#
+    def selecionaPlaca(self, placa):
+        banco = Banco()
+        try:
+
+            c = banco.conexao.cursor()
+
+            c.execute("select * from placas where placa = " + placa + "  ")
+
+            for linha in c:
+                self.placa = linha[0]
+                self.h_entrada = linha[1]
+                self.h_saida = linha[2]
+                self.d_entrada = linha[3]
+                self.d_saida = linha[4]
+                self.v_pago = linha[5]
+                self.nv_uti = [6]
+
+            c.close()
+
+            return "Busca feita com sucesso!"
+        except:
+            return "Ocorreu um erro na busca do usuário"
+
+    def selecionaBox(self, box):
+        banco = Banco()
+        try:
+
+            c = banco.conexao.cursor()
+
+            c.execute("select * from placas where nv_uti = " + box + "  ")
+
+            for linha in c:
+                self.placa = linha[0]
+                self.h_entrada = linha[1]
+                self.h_saida = linha[2]
+                self.d_entrada = linha[3]
+                self.d_saida = linha[4]
+                self.v_pago = linha[5]
+                self.nv_uti = [6]
+
+            c.close()
+
+            return "Busca feita com sucesso!"
+        except:
+            return "Ocorreu um erro na busca do usuário"
