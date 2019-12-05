@@ -44,4 +44,3 @@ class Placas(object):
             return "Usuário excluído com sucesso!"
         except:
             return "Ocorreu um erro na exclusão do usuário"
-
