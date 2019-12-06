@@ -5,9 +5,10 @@
 # Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
-
-
+from GUI import entradaui
+from geraPlaca import placa_gen, box_gen, hm_gen, dt_gen
 from PyQt5 import QtCore, QtGui, QtWidgets
+from GUI.entradaui import Ui_Entrada
 
 
 class Ui_MainWindow(object):
@@ -31,7 +32,7 @@ class Ui_MainWindow(object):
         self.label_1.setObjectName("label_1")
         self.progressBar = QtWidgets.QProgressBar(self.groupBox)
         self.progressBar.setGeometry(QtCore.QRect(10, 320, 191, 23))
-        self.progressBar.setProperty("value", 6)
+        self.progressBar.setProperty("value", 100)
         self.progressBar.setObjectName("progressBar")
         self.label_2 = QtWidgets.QLabel(self.groupBox)
         self.label_2.setGeometry(QtCore.QRect(10, 50, 41, 21))
@@ -143,7 +144,7 @@ class Ui_MainWindow(object):
         self.label_19.setObjectName("label_19")
         self.label_20 = QtWidgets.QLabel(self.groupBox)
         self.label_20.setGeometry(QtCore.QRect(60, 290, 41, 21))
-        self.label_20.setStyleSheet("background-color: rgb(170, 0, 0);\n"
+        self.label_20.setStyleSheet("background-color: rgb(0, 170, 0);\n"
 "font: 12pt \"MS Shell Dlg 2\";\n")
         self.label_20.setAlignment(QtCore.Qt.AlignCenter)
         self.label_20.setObjectName("label_20")
@@ -267,6 +268,16 @@ class Ui_MainWindow(object):
 "font: 75 12pt \"MS Shell Dlg 2\";")
         self.label_40.setAlignment(QtCore.Qt.AlignCenter)
         self.label_40.setObjectName("label_40")
+        self.labels = {
+            "1": self.label_1, "2": self.label_2, "3": self.label_3, "4": self.label_4, "5": self.label_5,
+            "6": self.label_6, "7": self.label_7, "8": self.label_8, "9": self.label_9, "10": self.label_10,
+            "11": self.label_11, "12": self.label_12, "13": self.label_13, "14": self.label_14, "15": self.label_15,
+            "16": self.label_16, "17": self.label_17, "18": self.label_18, "19": self.label_19, "20": self.label_20,
+            "21": self.label_21, "22": self.label_22, "23": self.label_23, "24": self.label_24, "25": self.label_25,
+            "26": self.label_6, "27": self.label_7, "28": self.label_8, "29": self.label_9, "30": self.label_30,
+            "31": self.label_31, "32": self.label_32, "33": self.label_33, "34": self.label_34, "35": self.label_35,
+            "36": self.label_36, "37": self.label_37, "38": self.label_38, "39": self.label_39, "40": self.label_40
+        } # TEM UM DICIONARIO COM AS LABELS DE TODOS OS BOX SEGUIDO POR {"Nº-BOX" : SELF.LABEL}
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_2.setGeometry(QtCore.QRect(220, 5, 131, 181))
         self.groupBox_2.setObjectName("groupBox_2")
@@ -279,11 +290,11 @@ class Ui_MainWindow(object):
         self.PBentrada = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.PBentrada.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.PBentrada.setObjectName("PBentrada")
-        self.PBentrada.clicked.connect(self.SetColorRedBox1)
+
         self.verticalLayout.addWidget(self.PBentrada)
         self.PBsaida = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.PBsaida.setObjectName("PBsaida")
-        self.PBsaida.clicked.connect(self.SetColorGreenBox1)
+
         self.verticalLayout.addWidget(self.PBsaida)
         self.PBconspl = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.PBconspl.setObjectName("PBconspl")
@@ -322,7 +333,8 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuMenu.menuAction())
         self.menubar.addAction(self.menuOp_es.menuAction())
 
-
+        self.PBentrada.clicked.connect(self.SetColorRedBox)
+        self.PBsaida.clicked.connect(self.SetColorGreenBox)
         #self.PBconspl.clicked.connect(self.SetColorRedBox())
         #self.PBconsbx.clicked.connect(self.SetColorRedBox())
 
@@ -387,31 +399,16 @@ class Ui_MainWindow(object):
         self.actionConsultar_Placa.setText(_translate("MainWindow", "Consultar Placa"))
         self.actionConsultar_box.setText(_translate("MainWindow", "Consultar box"))
 
-    # NÃO CONSEGUI CRIAR UMA FUNÇÃO PARA COLOCAR O SELF.LABEL COMO ATRIBUTO PRA PUXAR DA CLASSE DA ERRO QUANDO COLOCO
-    # DEFINE A COR DA CAIXA DE NUMERO DO BOX
-    def SetColorRedBox1(self): # UTILIZADA NO BOTAO CADASTRAR ENTRADA
-        self.label_1.setStyleSheet("background-color: rgb(170, 0, 0); font: 75 12pt \"MS Shell Dlg 2\";")
-    def SetColorRedBox2(self):
-        self.label_2.setStyleSheet("background-color: rgb(170, 0, 0); font: 75 12pt \"MS Shell Dlg 2\";")
-    def SetColorRedBox3(self):
-        self.label_3.setStyleSheet("background-color: rgb(170, 0, 0); font: 75 12pt \"MS Shell Dlg 2\";")
-    def SetColorRedBox4(self):
-        self.label_4.setStyleSheet("background-color: rgb(170, 0, 0); font: 75 12pt \"MS Shell Dlg 2\";")
-    def SetColorRedBox5(self):
-        self.label_5.setStyleSheet("background-color: rgb(170, 0, 0); font: 75 12pt \"MS Shell Dlg 2\";")
-    #################################### FALTA MAIS 35 LINHAS IGUAIS ####################################
 
-    def SetColorGreenBox1(self): # UTILIZADA NO BOTAO CADASTRAR SAIDA
-        self.label_1.setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
-    def SetColorGreenBox2(self):
-        self.label_2.setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
-    def SetColorGreenBox3(self):
-        self.label_3.setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
-    def SetColorGreenBox4(self):
-        self.label_4.setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
-    def SetColorGreenBox5(self):
-        self.label_5.setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
-    #################################### FALTA MAIS 35 LINHAS IGUAIS ####################################
+    # DEFINE A COR DA CAIXA DE NUMERO DO BOX
+    def SetColorRedBox(self): # UTILIZADA NO BOTAO CADASTRAR ENTRADA
+        box = box_gen() # alterar depois para retorno do entradaui.pycom Nº do BOX
+        self.labels[box].setStyleSheet("background-color: rgb(170, 0, 0); font: 75 12pt \"MS Shell Dlg 2\";")
+
+    # DEFINE A COR DA CAIXA DE NUMERO DO BOX
+    def SetColorGreenBox(self): # UTILIZADA NO BOTAO CADASTRAR SAIDA
+        box = box_gen() # alterar depois para consulta banco
+        self.labels[box].setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
 
 
 if __name__ == "__main__":

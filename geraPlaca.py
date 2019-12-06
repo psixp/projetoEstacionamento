@@ -1,23 +1,23 @@
 import random
 import string
-#
+
+# GERA HORA ATUAL
 def hm_gen():
     from datetime import datetime
     data_comp_atual = datetime.now()
     dh_atual = data_comp_atual.strftime("%X")
     return str(dh_atual)
 
-
+# GERA DATA ATUAL
 def dt_gen():
     from datetime import date
     d_atual = date.today()
     formata_data = f'{d_atual.day}/{d_atual.month}/{d_atual.year}'
     return str(formata_data)
-print(dt_gen())
+#print(dt_gen())
+
 # PROCURA UM BOX ALEATORIO ENTRE OS VAGOS
 # ARRUMAR PARA BUSCAR NO BANCO / ERA UTILIZADO EM UM DICIONARIO
-
-
 def box_gen():
     box_rand = random.randint(1, 40)
     #x_it = ent_veiculos.items()
@@ -28,6 +28,7 @@ def box_gen():
     #        pass
     return str(box_rand)
 
+# GERA PLACA
 def placa_gen():
 # RETORNA 1 LETRA DO ALFABETO EM UPPERCASE
     def letter_gen():
