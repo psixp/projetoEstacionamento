@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from geraPlaca import placa_gen, box_gen, hm_gen
+from geraPlaca import placa_gen, box_gen, hm_gen, dt_gen
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -48,6 +48,7 @@ class Ui_Entrada(object):
         self.lineEdit_3 = QtWidgets.QLineEdit(self.groupBox_2)
         self.lineEdit_3.setGeometry(QtCore.QRect(80, 60, 113, 20))
         self.lineEdit_3.setObjectName("lineEdit_3")
+        self.lineEdit_3.setText(dt_gen())
         self.lineEdit_4 = QtWidgets.QLineEdit(self.groupBox_2)
         self.lineEdit_4.setGeometry(QtCore.QRect(80, 80, 113, 20))
         self.lineEdit_4.setObjectName("lineEdit_4")

@@ -7,8 +7,16 @@ def hm_gen():
     dh_atual = data_comp_atual.strftime("%X")
     return str(dh_atual)
 
+
+def dt_gen():
+    from datetime import date
+    d_atual = date.today()
+    return str(d_atual)
+
 # PROCURA UM BOX ALEATORIO ENTRE OS VAGOS
 # ARRUMAR PARA BUSCAR NO BANCO / ERA UTILIZADO EM UM DICIONARIO
+
+
 def box_gen():
     box_rand = random.randint(1, 40)
     #x_it = ent_veiculos.items()
