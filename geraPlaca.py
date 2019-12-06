@@ -11,8 +11,9 @@ def hm_gen():
 def dt_gen():
     from datetime import date
     d_atual = date.today()
-    return str(d_atual)
-
+    formata_data = f'{d_atual.day}/{d_atual.month}/{d_atual.year}'
+    return str(formata_data)
+print(dt_gen())
 # PROCURA UM BOX ALEATORIO ENTRE OS VAGOS
 # ARRUMAR PARA BUSCAR NO BANCO / ERA UTILIZADO EM UM DICIONARIO
 
