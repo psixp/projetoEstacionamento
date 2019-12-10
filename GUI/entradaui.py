@@ -55,27 +55,11 @@ class Ui_Entrada(object):
         self.pushButton.setGeometry(QtCore.QRect(20, 140, 156, 23))
         self.pushButton.setObjectName("pushBotton")
         self.pushButton.clicked.connect(self.inserirDados)
+        self.pushButton.clicked.connect(self.teste)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
-    def getinfo(self):
-        self.itensDicio = {"placa": self.getPlaca.text(), "box": self.getBox.text(), "d_entrada" : self.getDtEntrada.text(), "h_entrada" : self.getHrEntrada.text()}
-        #print(self.itensDicio["box"], self.itensDicio["placa"])
-        return self.itensDicio
-        #### Conectar e gravar no banco ####
-    # FUNÇÃO PARA INSERIR DADOS
-    def inserirDados(self):
-        """nesta função criei um banco interno a este arquivo,
-        ou seja, o banco esta rodando tudo dentro desta função"""
-        placa = self.getPlaca.text()
-        print(placa)
-        db = sqlite3.connect('base_entrada.db')
-        db.cursor()
-        db.execute("""create table if not exists placas(user text)""")
-        db.execute("insert into placas (user) values ('"+placa+"')")
-        db.commit()
-        db.close()
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Registro de Saída"))
@@ -85,6 +69,33 @@ class Ui_Entrada(object):
         self.Box.setText(_translate("Form", "Nº do Box"))
         self.DtEntrada.setText(_translate("Form", "D. Entrada"))
         self.HrEntrada.setText(_translate("Form", "H. Entrada"))
+
+    def teste(self):
+        Form.close()
+
+    # Busca os dados criados para entrada do automovel
+    def getinfo(self):
+        self.itensDicio = {"placa": self.getPlaca.text(), "box": self.getBox.text(), "d_entrada" : self.getDtEntrada.text(), "h_entrada" : self.getHrEntrada.text()}
+        return self.itensDicio
+
+    # FUNÇÃO PARA INSERIR DADOS NO BANCO
+    def inserirDados(self):
+        # Nesta função criei um banco interno a este arquivo,
+        # ou seja, o banco esta rodando tudo dentro desta função
+        db = sqlite3.connect('bancoEstacionamento.db')
+        itensDicio = self.getinfo()
+        print(itensDicio)
+        db.cursor()
+        db.execute("""INSERT INTO placas (
+                       placa,
+                       d_entrada,
+                       h_entrada,
+                       box_util
+                   )
+                   VALUES (?,?,?,?)
+                   """, (itensDicio['placa'], itensDicio['d_entrada'], itensDicio['h_entrada'], itensDicio['box']))
+        db.commit()
+        db.close()
 
 if __name__ == "__main__":
     import sys

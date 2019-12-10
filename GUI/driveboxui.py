@@ -8,6 +8,7 @@
 from GUI import entradaui
 from geraPlaca import placa_gen, box_gen, hm_gen, dt_gen
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sqlite3
 from GUI.entradaui import Ui_Entrada
 from GUI.saidaui import Ui_Saida
 
@@ -333,8 +334,6 @@ class Ui_MainWindow(object):
         self.menuOp_es.addAction(self.actionFechar_Programa)
         self.menubar.addAction(self.menuMenu.menuAction())
         self.menubar.addAction(self.menuOp_es.menuAction())
-
-        #self.PBentrada.clicked.connect(self.SetColorRedBox)
         self.PBentrada.clicked.connect(self.initEntradaUi)
         self.PBsaida.clicked.connect(self.initSaidaUi)
         #self.PBconspl.clicked.connect(self.SetColorRedBox())
@@ -414,15 +413,16 @@ class Ui_MainWindow(object):
         self.labels[boxgerado].setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
 
     # INICIALIZA AQ CLASSE ENTRADA PARA CADASTRAR A ENTRADA
+    # ERA PRA CARREGAR A CLASSE COMO ESTA NO UI_ENTRADA...
+    # MAS NAO ESTA EFETUANDO AS MESMAS FUNCIONALIDADES QUE EXECUTAR NO PROPRIO ARQUIVO.
     def initEntradaUi(self):
         ui2 = Ui_Entrada()
         ui2.setupUi(entradainit)
         entradainit.showNormal()
-        self.boxteste = ui2.getinfo()["box"]
-        self.SetColorRedBox(self.boxteste)
-        #ui2.pushButton.click(self.teste())
-        def teste(self):
-            entradainit.close()
+        self.boxteste = ui2.getinfo()
+
+    def confirmaEntrada(self):
+        self.SetColorRedBox(self.boxteste["box"])
 
     # INICIALIZA AQ CLASSE ENTRADA PARA CADASTRAR A SAIDA DOS AUTOMOVEIS
     def initSaidaUi(self):
@@ -430,7 +430,6 @@ class Ui_MainWindow(object):
         ui3.setupUi(saidainit)
         saidainit.showNormal()
         self.SetColorGreenBox(self.boxteste)
-        #ui2.pushButton.click(self.teste2())
 
 
 if __name__ == "__main__":
