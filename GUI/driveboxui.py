@@ -421,6 +421,8 @@ class Ui_MainWindow(object):
         entradainit.showNormal()
         self.boxteste = ui2.getinfo()
 
+    # FUNÇÃO BUSCA O NUMERO DO BOX GERADO NA CLASSE DE ENTRADA
+    # E TROCA A COR DE VERDE PARA VERMELHO DE OCUPADO
     def confirmaEntrada(self):
         self.SetColorRedBox(self.boxteste["box"])
 
