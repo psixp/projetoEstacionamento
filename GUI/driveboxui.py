@@ -9,6 +9,7 @@ from GUI import entradaui
 from geraPlaca import placa_gen, box_gen, hm_gen, dt_gen
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GUI.entradaui import Ui_Entrada
+from GUI.saidaui import Ui_Saida
 
 
 class Ui_MainWindow(object):
@@ -333,11 +334,13 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuMenu.menuAction())
         self.menubar.addAction(self.menuOp_es.menuAction())
 
-        self.PBentrada.clicked.connect(self.SetColorRedBox)
-        self.PBsaida.clicked.connect(self.SetColorGreenBox)
+        #self.PBentrada.clicked.connect(self.SetColorRedBox)
+        self.PBentrada.clicked.connect(self.initEntradaUi)
+        self.PBsaida.clicked.connect(self.initSaidaUi)
         #self.PBconspl.clicked.connect(self.SetColorRedBox())
         #self.PBconsbx.clicked.connect(self.SetColorRedBox())
 
+        self.boxteste = ""
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -401,21 +404,42 @@ class Ui_MainWindow(object):
 
 
     # DEFINE A COR DA CAIXA DE NUMERO DO BOX
-    def SetColorRedBox(self): # UTILIZADA NO BOTAO CADASTRAR ENTRADA
-        box = box_gen() # alterar depois para retorno do entradaui.pycom Nº do BOX
-        self.labels[box].setStyleSheet("background-color: rgb(170, 0, 0); font: 75 12pt \"MS Shell Dlg 2\";")
+    def SetColorRedBox(self, boxgerado): # UTILIZADA NO BOTAO CADASTRAR ENTRADA
+        #box = boxgerado # alterar depois para retorno do entradaui.pycom Nº do BOX
+        self.labels[boxgerado].setStyleSheet("background-color: rgb(170, 0, 0); font: 75 12pt \"MS Shell Dlg 2\";")
 
     # DEFINE A COR DA CAIXA DE NUMERO DO BOX
-    def SetColorGreenBox(self): # UTILIZADA NO BOTAO CADASTRAR SAIDA
-        box = box_gen() # alterar depois para consulta banco
-        self.labels[box].setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
+    def SetColorGreenBox(self, boxgerado): # UTILIZADA NO BOTAO CADASTRAR SAIDA
+        # box = box_gen() # alterar depois para consulta banco
+        self.labels[boxgerado].setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
+
+    # INICIALIZA AQ CLASSE ENTRADA PARA CADASTRAR A ENTRADA
+    def initEntradaUi(self):
+        ui2 = Ui_Entrada()
+        ui2.setupUi(entradainit)
+        entradainit.showNormal()
+        self.boxteste = ui2.getinfo()["box"]
+        self.SetColorRedBox(self.boxteste)
+        #ui2.pushButton.click(self.teste())
+        def teste(self):
+            entradainit.close()
+
+    # INICIALIZA AQ CLASSE ENTRADA PARA CADASTRAR A SAIDA DOS AUTOMOVEIS
+    def initSaidaUi(self):
+        ui3 = Ui_Saida()
+        ui3.setupUi(saidainit)
+        saidainit.showNormal()
+        self.SetColorGreenBox(self.boxteste)
+        #ui2.pushButton.click(self.teste2())
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
+    MainWindow = QtWidgets.QMainWindow() # CARREGA O GUI EM UMA VARIAVEL
+    entradainit = QtWidgets.QWidget() # CARREGA O GUI EM UMA VARIAVEL
+    saidainit = QtWidgets.QWidget() # CARREGA O GUI EM UMA VARIAVEL
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    MainWindow.show()
+    MainWindow.showNormal()
     sys.exit(app.exec_())

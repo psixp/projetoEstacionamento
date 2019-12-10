@@ -50,26 +50,23 @@ class Ui_Entrada(object):
         self.getHrEntrada.setGeometry(QtCore.QRect(80, 80, 113, 20))
         self.getHrEntrada.setObjectName("Hora de Entrada")
         self.getHrEntrada.setText(hm_gen())  ######### JÁ VEM COM A HORA DE ENTRADA PREENCHIDA ####################
-        self.buttonBox = QtWidgets.QDialogButtonBox(self.groupBox_2)
-        self.buttonBox.setGeometry(QtCore.QRect(20, 140, 156, 23))
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
-        self.buttonBox.accepted.connect(self.getinfo)
-        self.buttonBox.accepted.connect(exit)
-        self.buttonBox.rejected.connect(exit)
-
+        self.pushButton = QtWidgets.QPushButton(self.groupBox_2)
+        self.pushButton.setGeometry(QtCore.QRect(20, 140, 156, 23))
+        self.pushButton.setObjectName("buttonBox")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def getinfo(self):
         self.itensDicio = {"placa": self.getPlaca.text(), "box": self.getBox.text(), "d_entrada" : self.getDtEntrada.text(), "h_entrada" : self.getHrEntrada.text()}
-
+        #print(self.itensDicio["box"], self.itensDicio["placa"])
+        return self.itensDicio
         #### Conectar e gravar no banco ####
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Registro de Saída"))
+        self.pushButton.setText(_translate("Form", "Cadastrar"))
         self.groupBox_2.setTitle(_translate("Form", "Entrada"))
         self.Placa.setText(_translate("Form", "Placa"))
         self.Box.setText(_translate("Form", "Nº do Box"))

@@ -1,4 +1,4 @@
-from banco import Banco
+#from banco import Banco
 from geraPlaca import placa_gen, box_gen, hm_gen
 from PyQt5 import QtCore, QtGui, QtWidgets
 from GUI.driveboxui import Ui_MainWindow
@@ -26,5 +26,5 @@ def teste():
         ui.setupUi(Form)
         Form.show()
         sys.exit(app.exec_())
-mainWindow()
+#mainWindow()
 teste()
