@@ -339,7 +339,7 @@ class Ui_MainWindow(object):
         #self.PBconspl.clicked.connect(self.SetColorRedBox())
         #self.PBconsbx.clicked.connect(self.SetColorRedBox())
 
-        self.boxteste = ""
+        self.boxteste = ''
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -401,7 +401,6 @@ class Ui_MainWindow(object):
         self.actionConsultar_Placa.setText(_translate("MainWindow", "Consultar Placa"))
         self.actionConsultar_box.setText(_translate("MainWindow", "Consultar box"))
 
-
     # DEFINE A COR DA CAIXA DE NUMERO DO BOX
     def SetColorRedBox(self, boxgerado): # UTILIZADA NO BOTAO CADASTRAR ENTRADA
         #box = boxgerado # alterar depois para retorno do entradaui.pycom Nº do BOX
@@ -412,19 +411,22 @@ class Ui_MainWindow(object):
         # box = box_gen() # alterar depois para consulta banco
         self.labels[boxgerado].setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
 
+
+
     # INICIALIZA AQ CLASSE ENTRADA PARA CADASTRAR A ENTRADA
     # ERA PRA CARREGAR A CLASSE COMO ESTA NO UI_ENTRADA...
     # MAS NAO ESTA EFETUANDO AS MESMAS FUNCIONALIDADES QUE EXECUTAR NO PROPRIO ARQUIVO.
     def initEntradaUi(self):
-        ui2 = Ui_Entrada()
-        ui2.setupUi(entradainit)
         entradainit.showNormal()
-        self.boxteste = ui2.getinfo()
+        ui2.buttonBox.accepted.connect(ui2.okAndClose())
+
 
     # FUNÇÃO BUSCA O NUMERO DO BOX GERADO NA CLASSE DE ENTRADA
     # E TROCA A COR DE VERDE PARA VERMELHO DE OCUPADO
     def confirmaEntrada(self):
-        self.SetColorRedBox(self.boxteste["box"])
+        #self.SetColorRedBox(self.boxteste["box"])
+        pass
+
 
     # INICIALIZA AQ CLASSE ENTRADA PARA CADASTRAR A SAIDA DOS AUTOMOVEIS
     def initSaidaUi(self):
@@ -442,5 +444,8 @@ if __name__ == "__main__":
     saidainit = QtWidgets.QWidget() # CARREGA O GUI EM UMA VARIAVEL
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
+    ui2 = Ui_Entrada()
+    ui2.setupUi(entradainit)
+    entradainit.close()
     MainWindow.showNormal()
     sys.exit(app.exec_())
