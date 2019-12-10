@@ -336,9 +336,6 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.retranslateUi2(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
-
         Form.setObjectName("Form")
         Form.resize(224, 199)
         self.itensDicio = None
@@ -384,6 +381,8 @@ class Ui_MainWindow(object):
         #self.buttonBox.setObjectName("buttonBox_2")
         #self.buttonBox.accepted.connect(self.okAndClose)
 
+        self.retranslateUi2(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -441,6 +440,7 @@ class Ui_MainWindow(object):
         self.actionFechar_Programa.setText(_translate("MainWindow", "Fechar Programa"))
         self.actionConsultar_Placa.setText(_translate("MainWindow", "Consultar Placa"))
         self.actionConsultar_box.setText(_translate("MainWindow", "Consultar box"))
+
     def retranslateUi2(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Registro de Saída"))
@@ -450,6 +450,7 @@ class Ui_MainWindow(object):
         self.Box.setText(_translate("Form", "Nº do Box"))
         self.DtEntrada.setText(_translate("Form", "D. Entrada"))
         self.HrEntrada.setText(_translate("Form", "H. Entrada"))
+
     # DEFINE A COR DA CAIXA DE NUMERO DO BOX
     def SetColorRedBox(self, boxgerado): # UTILIZADA NO BOTAO CADASTRAR ENTRADA
         #box = boxgerado # alterar depois para retorno do entradaui.pycom Nº do BOX
