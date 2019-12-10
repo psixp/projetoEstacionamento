@@ -2,32 +2,18 @@ import sqlite3
 
 
 
-conexao = sqlite3.connect('bancoEstacionamento.db')
-c = conexao.cursor()
+class Banco:
+    def __init__(self):
+        self.conexao = sqlite3.connect('bancoEstacionamento.db')
+        self.createTable()
 
-c.execute("""
-CREATE TABLE if NOT EXISTS placas(
-            placa TEXT primary key,
-            d_entrada TEXT,
-            h_entrada TEXT,
-            d_saida TEXT,
-            h_saida TEXT,
-            v_pago TEXT,
-            bx_utilizado TEXT,
-            nv_uti TEXT);
-            """)
+    def createTable(self):
+        c = self.conexao.cursor()
 
-c.execute("""
-CREATE TABLE if NOT EXISTS uso_diaria(
-           id TEXT,
-           placa TEXT,
-           d_entrada TEXT,
-           h_entrada TEXT,
-           d_saida TEXT,
-           h_saida TEXT,
-           v_pago TEXT,
-           bx_utilizado text primary key);
-           """)
+        c.execute("""create table if not exists placas( placa char , d_entrada char, h_entrada char, d_saida date , h_saida date , v_pago char , nv_uti char )""")
 
-conexao.commit()
-c.close()
+
+        self.conexao.commit()
+        c.close()
+
+

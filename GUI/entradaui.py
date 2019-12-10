@@ -8,7 +8,8 @@
 
 from geraPlaca import placa_gen, box_gen, hm_gen, dt_gen
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from clientes import Placas
+import sqlite3
 
 class Ui_Entrada(object):
     def setupUi(self, Form):
@@ -52,7 +53,8 @@ class Ui_Entrada(object):
         self.getHrEntrada.setText(hm_gen())  ######### JÁ VEM COM A HORA DE ENTRADA PREENCHIDA ####################
         self.pushButton = QtWidgets.QPushButton(self.groupBox_2)
         self.pushButton.setGeometry(QtCore.QRect(20, 140, 156, 23))
-        self.pushButton.setObjectName("buttonBox")
+        self.pushButton.setObjectName("pushBotton")
+        self.pushButton.clicked.connect(self.inserirDados)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -62,7 +64,18 @@ class Ui_Entrada(object):
         #print(self.itensDicio["box"], self.itensDicio["placa"])
         return self.itensDicio
         #### Conectar e gravar no banco ####
-
+    # FUNÇÃO PARA INSERIR DADOS
+    def inserirDados(self):
+        """nesta função criei um banco interno a este arquivo,
+        ou seja, o banco esta rodando tudo dentro desta função"""
+        placa = self.getPlaca.text()
+        print(placa)
+        db = sqlite3.connect('base_entrada.db')
+        db.cursor()
+        db.execute("""create table if not exists placas(user text)""")
+        db.execute("insert into placas (user) values ('"+placa+"')")
+        db.commit()
+        db.close()
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Registro de Saída"))
