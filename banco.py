@@ -3,11 +3,11 @@ import sqlite3
 class Database:
     def __init__(self, db_name):
         self.conn = sqlite3.connect(db_name)
-        #self.createTable()
+        self.createTable()
 
     def createTable(self):
         c = self.conn.cursor()
-        c.execute("""CREATE TABLE placas (
+        c.execute("""CREATE TABLE IF NOT EXISTS placas (
                                             id        INTEGER PRIMARY KEY AUTOINCREMENT,
                                             placa     CHAR,
                                             d_entrada CHAR,
@@ -31,7 +31,13 @@ class Database:
         db.close()
         return listbox
 
+    def deletarDados(self, itensDicio):
+        db = self.conn
+        db.cursor()
+        db.execute("DELETE FROM placas WHERE placa = ?", (self.itensDicio['placa']))
 
+        db.commit()
+        db.close()
 
     def insertDados(self, itensDicio):
         db = self.conn

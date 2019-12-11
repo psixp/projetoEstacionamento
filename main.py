@@ -8,14 +8,16 @@ from banco import Database
 
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow, Form):
+    def setupUi(self, MainWindow, Form, Form2Saida):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(358, 399)
         MainWindow.setLayoutDirection(QtCore.Qt.LeftToRight)
         MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonTextOnly)
         MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
         MainWindow.setDockOptions(QtWidgets.QMainWindow.AllowTabbedDocks|QtWidgets.QMainWindow.AnimatedDocks)
-
+########################################################################################################################
+      # INICIO DO MAIN WINDOW / PAGINA INICIAL DO PROJETO #
+########################################################################################################################
         self.boxusos = Database("bancoEstacionamento.db").getBoxsUso()
         self.percent = self.getpercent(len(self.boxusos))
 
@@ -341,7 +343,9 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+########################################################################################################################
+# INICIO DO WIDGET DE ENTRADA #
+########################################################################################################################
         Form.setObjectName("Form")
         Form.resize(224, 199)
         self.itensDicio = None
@@ -383,12 +387,75 @@ class Ui_MainWindow(object):
         self.pushButton.clicked.connect(self.okAndClose)
         self.boxteste = ""
         self.SetColorUtilBox()
-        #self.getpercent()
-
 
         self.retranslateUi2(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+########################################################################################################################
+# INICIO DO WIDGET DE SAIDA #
+########################################################################################################################
+        Form2Saida.setObjectName("Form2Saida")
+        Form2Saida.resize(223, 200)
+        self.groupBox_3 = QtWidgets.QGroupBox(Form2Saida)
+        self.groupBox_3.setGeometry(QtCore.QRect(10, 10, 201, 181))
+        self.groupBox_3.setObjectName("groupBox_3")
+        self.placa = QtWidgets.QLabel(self.groupBox_3)
+        self.placa.setGeometry(QtCore.QRect(10, 20, 61, 16))
+        self.placa.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
+        self.placa.setObjectName("placa")
+        self.box = QtWidgets.QLabel(self.groupBox_3)
+        self.box.setGeometry(QtCore.QRect(10, 40, 61, 16))
+        self.box.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
+        self.box.setObjectName("box")
+        self.hrSaida = QtWidgets.QLabel(self.groupBox_3)
+        self.hrSaida.setGeometry(QtCore.QRect(10, 80, 61, 16))
+        self.hrSaida.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
+        self.hrSaida.setObjectName("hrSaida")
+        self.dtEntrada = QtWidgets.QLabel(self.groupBox_3)
+        self.dtEntrada.setGeometry(QtCore.QRect(10, 60, 61, 16))
+        self.dtEntrada.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
+        self.dtEntrada.setObjectName("dtEntrada")
+        self.dtSaida = QtWidgets.QLabel(self.groupBox_3)
+        self.dtSaida.setGeometry(QtCore.QRect(10, 100, 61, 16))
+        self.dtSaida.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
+        self.dtSaida.setObjectName("dtSaida")
+        self.hrEntrada = QtWidgets.QLabel(self.groupBox_3)
+        self.hrEntrada.setGeometry(QtCore.QRect(10, 120, 61, 16))
+        self.hrEntrada.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
+        self.hrEntrada.setObjectName("hrEntrada")
+        self.saidaplaca = QtWidgets.QLineEdit(self.groupBox_3)
+        self.saidaplaca.setGeometry(QtCore.QRect(80, 20, 113, 20))
+        self.saidaplaca.setObjectName("saidaplaca")
+        self.saidaplaca.setText("importar placa do banco")
+        self.boxsaida = QtWidgets.QLineEdit(self.groupBox_3)
+        self.boxsaida.setGeometry(QtCore.QRect(80, 40, 113, 20))
+        self.boxsaida.setObjectName("boxsaida")
+        self.boxsaida.setText("importar box do banco")
+        self.dtEntrSaida = QtWidgets.QLineEdit(self.groupBox_3)
+        self.dtEntrSaida.setGeometry(QtCore.QRect(80, 60, 113, 20))
+        self.dtEntrSaida.setObjectName("dtEntrSaida")
+        self.dtEntrSaida.setText("importar box do banco")
+        self.hSaidaSai = QtWidgets.QLineEdit(self.groupBox_3)
+        self.hSaidaSai.setGeometry(QtCore.QRect(80, 80, 113, 20))
+        self.hSaidaSai.setObjectName("hSaidaSai")
+        self.hSaidaSai.setText("importar box do banco")
+        self.dtSaidaSai = QtWidgets.QLineEdit(self.groupBox_3)
+        self.dtSaidaSai.setGeometry(QtCore.QRect(80, 100, 113, 20))
+        self.dtSaidaSai.setObjectName("dtSaidaSai")
+        self.dtSaidaSai.setText("importar box do banco")
+        self.hEntrSaida = QtWidgets.QLineEdit(self.groupBox_3)
+        self.hEntrSaida.setGeometry(QtCore.QRect(80, 120, 113, 20))
+        self.hEntrSaida.setObjectName("hEntrSaida")
+        self.hEntrSaida.setText("importar box do banco")
+        self.buttonBox_2 = QtWidgets.QDialogButtonBox(self.groupBox_3)
+        self.buttonBox_2.setGeometry(QtCore.QRect(20, 150, 156, 23))
+        self.buttonBox_2.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox_2.setObjectName("buttonBox_2")
 
+
+        self.retranslateUi3(Form2Saida)
+        QtCore.QMetaObject.connectSlotsByName(Form2Saida)
+
+    # NOMES DE LINHAS E BOTOES PAGINA PRINCIPAL
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "DriveBox"))
@@ -446,7 +513,7 @@ class Ui_MainWindow(object):
         self.actionFechar_Programa.setText(_translate("MainWindow", "Fechar Programa"))
         self.actionConsultar_Placa.setText(_translate("MainWindow", "Consultar Placa"))
         self.actionConsultar_box.setText(_translate("MainWindow", "Consultar box"))
-
+    # NOMES DE LINHAS E BOTOES ENTRADA
     def retranslateUi2(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Registro de Saída"))
@@ -456,6 +523,17 @@ class Ui_MainWindow(object):
         self.Box.setText(_translate("Form", "Nº do Box"))
         self.DtEntrada.setText(_translate("Form", "D. Entrada"))
         self.HrEntrada.setText(_translate("Form", "H. Entrada"))
+    # NOMES DE LINHAS E BOTOES SAIDA
+    def retranslateUi3(self, Form2Saida):
+        _translate = QtCore.QCoreApplication.translate
+        Form2Saida.setWindowTitle(_translate("Form", "Registro de Entrada"))
+        self.groupBox_3.setTitle(_translate("Form", "Saída"))
+        self.placa.setText(_translate("Form", "Placa"))
+        self.box.setText(_translate("Form", "Nº do Box"))
+        self.hrSaida.setText(_translate("Form", "H. Saída"))
+        self.dtEntrada.setText(_translate("Form", "D. Entrada"))
+        self.dtSaida.setText(_translate("Form", "D. Saída"))
+        self.hrEntrada.setText(_translate("Form", "H. Entrada"))
 
     def getpercent(self, ttl):
         percent = ttl / 40 * 100
@@ -491,14 +569,15 @@ class Ui_MainWindow(object):
 
     # INICIALIZA AQ CLASSE ENTRADA PARA CADASTRAR A SAIDA DOS AUTOMOVEIS
     def initSaidaUi(self):
-        ui3 = Ui_Saida()
-        ui3.setupUi(saidainit)
-        saidainit.showNormal()
-        self.SetColorGreenBox(self.boxteste)
-
+        Form2Saida.showNormal()
+        self.getPlaca.setText(placa_gen())  ######### JÁ VEM COM A PLACA PREENCHIDA ####################
+        self.getBox.setText(box_gen())  ######### JÁ VEM COM A BOX PREENCHIDA ####################
+        self.getDtEntrada.setText(dt_gen())  ######### JÁ VEM COM A DATA DE ENTRADA PREENCHIDA ####################
+        self.getHrEntrada.setText(hm_gen())  ######### JÁ VEM COM A HORA DE ENTRADA PREENCHIDA ####################
 
 ###################################################################################################
 ###################################################################################################
+
     # Confirma os Dados e fecha janela
     def okAndClose(self):
         itensDicio = self.getinfo()
@@ -523,10 +602,12 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow() # CARREGA O GUI EM UMA VARIAVEL
-    Form = QtWidgets.QWidget() # CARREGA O GUI EM UMA VARIAVEL
+    Form = QtWidgets.QWidget() # CARREGA O GUI DE ENTRADA
+    Form2Saida = QtWidgets.QWidget() # CARREGA O GUI DE SAIDA
     saidainit = QtWidgets.QWidget() # CARREGA O GUI EM UMA VARIAVEL
     ui = Ui_MainWindow()
-    ui.setupUi(MainWindow, Form)
+    ui.setupUi(MainWindow, Form, Form2Saida)
     MainWindow.showNormal()
     #Form.showNormal()
+    #Form2Saida.showNormal()
     sys.exit(app.exec_())

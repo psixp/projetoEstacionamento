@@ -11,10 +11,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Saida(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(223, 200)
-        self.groupBox_3 = QtWidgets.QGroupBox(Form)
+    def setupUi(self, Form2Saida):
+        Form2Saida.setObjectName("Form2Saida")
+        Form2Saida.resize(223, 200)
+        self.groupBox_3 = QtWidgets.QGroupBox(Form2Saida)
         self.groupBox_3.setGeometry(QtCore.QRect(10, 10, 201, 181))
         self.groupBox_3.setObjectName("groupBox_3")
         self.placa = QtWidgets.QLabel(self.groupBox_3)
@@ -41,21 +41,26 @@ class Ui_Saida(object):
         self.hrEntrada.setGeometry(QtCore.QRect(10, 120, 61, 16))
         self.hrEntrada.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
         self.hrEntrada.setObjectName("hrEntrada")
-        self.lineEdit_7 = QtWidgets.QLineEdit(self.groupBox_3)
-        self.lineEdit_7.setGeometry(QtCore.QRect(80, 20, 113, 20))
-        self.lineEdit_7.setObjectName("lineEdit_7")
-        self.lineEdit_8 = QtWidgets.QLineEdit(self.groupBox_3)
-        self.lineEdit_8.setGeometry(QtCore.QRect(80, 40, 113, 20))
-        self.lineEdit_8.setObjectName("lineEdit_8")
+        self.saidaplaca = QtWidgets.QLineEdit(self.groupBox_3)
+        self.saidaplaca.setGeometry(QtCore.QRect(80, 20, 113, 20))
+        self.saidaplaca.setObjectName("saidaplaca")
+        self.saidaplaca.setText("importar do banco")
+        self.boxsaida = QtWidgets.QLineEdit(self.groupBox_3)
+        self.boxsaida.setGeometry(QtCore.QRect(80, 40, 113, 20))
+        self.boxsaida.setObjectName("boxsaida")
+        self.boxsaida.setText("importar do banco 2")
         self.lineEdit_9 = QtWidgets.QLineEdit(self.groupBox_3)
         self.lineEdit_9.setGeometry(QtCore.QRect(80, 60, 113, 20))
         self.lineEdit_9.setObjectName("lineEdit_9")
+        self.lineEdit_9.setText("importar do banco 3")
         self.lineEdit_10 = QtWidgets.QLineEdit(self.groupBox_3)
         self.lineEdit_10.setGeometry(QtCore.QRect(80, 80, 113, 20))
         self.lineEdit_10.setObjectName("lineEdit_10")
+        self.lineEdit_10.setText("importar do banco 4")
         self.lineEdit_11 = QtWidgets.QLineEdit(self.groupBox_3)
         self.lineEdit_11.setGeometry(QtCore.QRect(80, 100, 113, 20))
         self.lineEdit_11.setObjectName("lineEdit_11")
+        self.lineEdit_11.setText("importar do banco 5")
         self.buttonBox_2 = QtWidgets.QDialogButtonBox(self.groupBox_3)
         self.buttonBox_2.setGeometry(QtCore.QRect(20, 150, 156, 23))
         self.buttonBox_2.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
@@ -63,13 +68,14 @@ class Ui_Saida(object):
         self.lineEdit_12 = QtWidgets.QLineEdit(self.groupBox_3)
         self.lineEdit_12.setGeometry(QtCore.QRect(80, 120, 113, 20))
         self.lineEdit_12.setObjectName("lineEdit_12")
+        self.lineEdit_12.setText("importar do banco 6")
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(Form2Saida)
+        QtCore.QMetaObject.connectSlotsByName(Form2Saida)
 
-    def retranslateUi(self, Form):
+    def retranslateUi(self, Form2Saida):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Registro de Entrada"))
+        Form2Saida.setWindowTitle(_translate("Form", "Registro de Entrada"))
         self.groupBox_3.setTitle(_translate("Form", "Saída"))
         self.placa.setText(_translate("Form", "Placa"))
         self.box.setText(_translate("Form", "Nº do Box"))
@@ -82,8 +88,8 @@ class Ui_Saida(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
+    Form2Saida = QtWidgets.QWidget()
     ui = Ui_Saida()
-    ui.setupUi(Form)
-    Form.show()
+    ui.setupUi(Form2Saida)
+    Form2Saida.show()
     sys.exit(app.exec_())
