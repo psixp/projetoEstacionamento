@@ -338,7 +338,7 @@ class Ui_MainWindow(object):
         self.PBentrada.clicked.connect(self.initEntradaUi)
         self.PBsaida.clicked.connect(self.initSaidaUi)
         #self.PBconspl.clicked.connect(self.SetColorRedBox())
-        self.PBconsbx.clicked.connect(self.testando)
+        #self.PBconsbx.clicked.connect(self.testando)
 
 
         self.retranslateUi(MainWindow)
@@ -425,31 +425,39 @@ class Ui_MainWindow(object):
         self.saidaplaca = QtWidgets.QLineEdit(self.groupBox_3)
         self.saidaplaca.setGeometry(QtCore.QRect(80, 20, 113, 20))
         self.saidaplaca.setObjectName("saidaplaca")
-        self.saidaplaca.setText("importar placa do banco")
+        #self.saidaplaca.setText("QNI9812")
         self.boxsaida = QtWidgets.QLineEdit(self.groupBox_3)
         self.boxsaida.setGeometry(QtCore.QRect(80, 40, 113, 20))
         self.boxsaida.setObjectName("boxsaida")
-        self.boxsaida.setText("importar box do banco")
+        #self.boxsaida.setText("importar box do banco")
         self.dtEntrSaida = QtWidgets.QLineEdit(self.groupBox_3)
         self.dtEntrSaida.setGeometry(QtCore.QRect(80, 60, 113, 20))
         self.dtEntrSaida.setObjectName("dtEntrSaida")
-        self.dtEntrSaida.setText("importar box do banco")
+        #self.dtEntrSaida.setText("importar box do banco")
         self.hSaidaSai = QtWidgets.QLineEdit(self.groupBox_3)
         self.hSaidaSai.setGeometry(QtCore.QRect(80, 80, 113, 20))
         self.hSaidaSai.setObjectName("hSaidaSai")
-        self.hSaidaSai.setText("importar box do banco")
+        #self.hSaidaSai.setText("importar box do banco")
         self.dtSaidaSai = QtWidgets.QLineEdit(self.groupBox_3)
         self.dtSaidaSai.setGeometry(QtCore.QRect(80, 100, 113, 20))
         self.dtSaidaSai.setObjectName("dtSaidaSai")
-        self.dtSaidaSai.setText("importar box do banco")
+        #self.dtSaidaSai.setText("importar box do banco")
         self.hEntrSaida = QtWidgets.QLineEdit(self.groupBox_3)
         self.hEntrSaida.setGeometry(QtCore.QRect(80, 120, 113, 20))
         self.hEntrSaida.setObjectName("hEntrSaida")
-        self.hEntrSaida.setText("importar box do banco")
-        self.buttonBox_2 = QtWidgets.QDialogButtonBox(self.groupBox_3)
-        self.buttonBox_2.setGeometry(QtCore.QRect(20, 150, 156, 23))
-        self.buttonBox_2.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox_2.setObjectName("buttonBox_2")
+        #self.hEntrSaida.setText("importar box do banco")
+        #self.buttonBox_2 = QtWidgets.QDialogButtonBox(self.groupBox_3)
+        #self.buttonBox_2.setGeometry(QtCore.QRect(20, 150, 156, 23))
+        #self.buttonBox_2.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
+        #self.buttonBox_2.setObjectName("buttonBox_2")
+        self.buscarPlaca = QtWidgets.QPushButton(Form2Saida)
+        self.buscarPlaca.setGeometry(QtCore.QRect(40, 160, 60, 23))
+        self.buscarPlaca.setObjectName("buscarPlaca")
+        self.buscarPlaca.clicked.connect(self.buscarsaidaplacabox)
+        self.gravaSaida = QtWidgets.QPushButton(Form2Saida)
+        self.gravaSaida.setGeometry(QtCore.QRect(120, 160, 60, 23))
+        self.gravaSaida.setObjectName("gravaSaida")
+        self.gravaSaida.clicked.connect(self.updatesaida)
 
 
         self.retranslateUi3(Form2Saida)
@@ -534,6 +542,8 @@ class Ui_MainWindow(object):
         self.dtEntrada.setText(_translate("Form", "D. Entrada"))
         self.dtSaida.setText(_translate("Form", "D. Saída"))
         self.hrEntrada.setText(_translate("Form", "H. Entrada"))
+        self.buscarPlaca.setText(_translate("Form", "Buscar"))
+        self.gravaSaida.setText(_translate("Form", "Saida"))
 
     def getpercent(self, ttl):
         percent = ttl / 40 * 100
@@ -577,7 +587,8 @@ class Ui_MainWindow(object):
 
 ###################################################################################################
 ###################################################################################################
-
+## FUNÇÕES DE ENTRADA
+###################################################################################################
     # Confirma os Dados e fecha janela
     def okAndClose(self):
         itensDicio = self.getinfo()
@@ -588,15 +599,43 @@ class Ui_MainWindow(object):
     # FUNÇÃO PARA INSERIR DADOS NO BANCO
     def inserirDados(self, itensDicio):
         insert = Database("bancoEstacionamento.db")
-        insert.insertDados(itensDicio)
+        insert.insertDadosDiaria(itensDicio)
 
     # Busca os dados criados para entrada do automovel
     def getinfo(self):
         self.itensDicio = {"placa": self.getPlaca.text(), "box": self.getBox.text(), "d_entrada" : self.getDtEntrada.text(), "h_entrada" : self.getHrEntrada.text()}
         return self.itensDicio
 
-    def testando(self):
-        self.SetColorUtilBox()
+    #def testando(self):
+    #    self.SetColorUtilBox()
+###################################################################################################
+###################################################################################################
+## FUNÇÕES DE SAIDA
+###################################################################################################
+    def buscarsaidaplacabox(self):
+        itembusca = {"placa": str(self.saidaplaca.text())}
+        #itembusca = {"placa": "QNI9812"}
+        db = Database("bancoEstacionamento.db")
+        db.getDadosRow(itembusca["placa"])
+        self.boxsaida.setText(str(db.setBoxDB))
+        self.dtEntrSaida.setText(db.setDEntradaDB)
+        self.hEntrSaida.setText(db.setHEntradaDB)
+        self.hSaidaSai.setText(hm_gen())
+        self.dtSaidaSai.setText(dt_gen())
+
+
+    def updatesaida(self):
+        db = Database("bancoEstacionamento.db")
+        #print([self.dtSaidaSai.text(), self.hSaidaSai.text(), self.saidaplaca.text()])
+        #db.updateDadosSaida((self.dtSaidaSai.text(), self.hSaidaSai.text(), self.saidaplaca.text()))
+        self.updateSaidaInsertLogg()
+
+    def updateSaidaInsertLogg(self):
+        db = Database("bancoEstacionamento.db")
+        itensDicio = {"placa": self.saidaplaca.text(), "d_entrada": self.dtEntrSaida.text(), "h_entrada": self.hEntrSaida.text(), "d_saida": self.dtSaidaSai.text(), "h_saida": self.hSaidaSai.text(), "v_pago": "10", "box": self.getBox.text(),}
+        db.insertDadosLogg(itensDicio)
+        db.deletarDados(itensDicio)
+        Form2Saida.close()
 
 if __name__ == "__main__":
     import sys
@@ -607,7 +646,8 @@ if __name__ == "__main__":
     saidainit = QtWidgets.QWidget() # CARREGA O GUI EM UMA VARIAVEL
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow, Form, Form2Saida)
-    MainWindow.showNormal()
+    #MainWindow.showNormal()
     #Form.showNormal()
-    #Form2Saida.showNormal()
+    Form2Saida.showNormal()
+    #ui.buscarsaidaplacabox()
     sys.exit(app.exec_())
