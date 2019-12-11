@@ -499,11 +499,9 @@ class Ui_MainWindow(object):
     def inserirDados(self, itensDicio):
         # Nesta função criei um banco interno a este arquivo,
         # ou seja, o banco esta rodando tudo dentro desta função
+        global db
         db = sqlite3.connect('bancoEstacionamento.db')
 
-        ### PRINT DE TESTE ###
-        print(itensDicio)
-        ### PRINT DE TESTE ###
 
         db.cursor()
         db.execute("""INSERT INTO placas (
@@ -518,6 +516,13 @@ class Ui_MainWindow(object):
         db.commit()
         db.close()
 
+    # FUNÇÃO PARA DELETAR DO BANCO
+    def deletarDados(self):
+        db.execute("DELETE FROM placas WHERE placa = ?", (self.itensDicio['placa']))
+
+
+        db.commit()
+        db.close()
     # Busca os dados criados para entrada do automovel
     def getinfo(self):
         self.itensDicio = {"placa": self.getPlaca.text(), "box": self.getBox.text(), "d_entrada" : self.getDtEntrada.text(), "h_entrada" : self.getHrEntrada.text()}
