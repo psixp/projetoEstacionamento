@@ -1,5 +1,6 @@
 import random
 import string
+from banco import Database
 
 # GERA HORA ATUAL
 def hm_gen():
@@ -19,14 +20,14 @@ def dt_gen():
 # PROCURA UM BOX ALEATORIO ENTRE OS VAGOS
 # ARRUMAR PARA BUSCAR NO BANCO / ERA UTILIZADO EM UM DICIONARIO
 def box_gen():
-    box_rand = random.randint(1, 40)
-    #x_it = ent_veiculos.items()
-    #for k, v in x_it:
-    #    if str(box_rand) == v[0]:
-    #        return box_gen()
-    #    else:
-    #        pass
-    return str(box_rand)
+    db = Database("bancoEstacionamento.db")
+    boxusos = db.getBoxsUso()
+    while True:
+        box_rand = random.randint(1, 40)
+        if box_rand in boxusos:
+            pass
+        if box_rand not in boxusos:
+            return str(box_rand)
 
 # GERA PLACA
 def placa_gen():

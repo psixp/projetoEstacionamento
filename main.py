@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sqlite3
 from GUI.entradaui import Ui_Entrada
 from GUI.saidaui import Ui_Saida
+from banco import Database
 
 
 class Ui_MainWindow(object):
@@ -14,6 +15,10 @@ class Ui_MainWindow(object):
         MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonTextOnly)
         MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
         MainWindow.setDockOptions(QtWidgets.QMainWindow.AllowTabbedDocks|QtWidgets.QMainWindow.AnimatedDocks)
+
+        self.boxusos = Database("bancoEstacionamento.db").getBoxsUso()
+        self.percent = self.getpercent(len(self.boxusos))
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
@@ -27,7 +32,7 @@ class Ui_MainWindow(object):
         self.label_1.setObjectName("label_1")
         self.progressBar = QtWidgets.QProgressBar(self.groupBox)
         self.progressBar.setGeometry(QtCore.QRect(10, 320, 191, 23))
-        self.progressBar.setProperty("value", 100)
+        self.progressBar.setProperty("value", self.getpercent(len(self.boxusos)))
         self.progressBar.setObjectName("progressBar")
         self.label_2 = QtWidgets.QLabel(self.groupBox)
         self.label_2.setGeometry(QtCore.QRect(10, 50, 41, 21))
@@ -285,11 +290,9 @@ class Ui_MainWindow(object):
         self.PBentrada = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.PBentrada.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.PBentrada.setObjectName("PBentrada")
-
         self.verticalLayout.addWidget(self.PBentrada)
         self.PBsaida = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.PBsaida.setObjectName("PBsaida")
-
         self.verticalLayout.addWidget(self.PBsaida)
         self.PBconspl = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.PBconspl.setObjectName("PBconspl")
@@ -297,6 +300,9 @@ class Ui_MainWindow(object):
         self.PBconsbx = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.PBconsbx.setObjectName("PBconsbx")
         self.verticalLayout.addWidget(self.PBconsbx)
+        self.updatenum = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.updatenum.setObjectName("updatenum")
+        self.verticalLayout.addWidget(self.updatenum)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 358, 18))
@@ -330,8 +336,8 @@ class Ui_MainWindow(object):
         self.PBentrada.clicked.connect(self.initEntradaUi)
         self.PBsaida.clicked.connect(self.initSaidaUi)
         #self.PBconspl.clicked.connect(self.SetColorRedBox())
-        #self.PBconsbx.clicked.connect(self.SetColorRedBox())
-        self.boxteste = ''
+        self.PBconsbx.clicked.connect(self.testando)
+
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -375,11 +381,10 @@ class Ui_MainWindow(object):
         self.pushButton.setGeometry(QtCore.QRect(20, 140, 156, 23))
         self.pushButton.setObjectName("pushBotton")
         self.pushButton.clicked.connect(self.okAndClose)
-        #self.buttonBox = QtWidgets.QDialogButtonBox(self.groupBox_2)
-        #self.buttonBox.setGeometry(QtCore.QRect(20, 150, 156, 23))
-        #self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
-        #self.buttonBox.setObjectName("buttonBox_2")
-        #self.buttonBox.accepted.connect(self.okAndClose)
+        self.boxteste = ""
+        self.SetColorUtilBox()
+        #self.getpercent()
+
 
         self.retranslateUi2(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -433,6 +438,7 @@ class Ui_MainWindow(object):
         self.PBsaida.setText(_translate("MainWindow", "Registrar Saída"))
         self.PBconspl.setText(_translate("MainWindow", "Consultar Placa"))
         self.PBconsbx.setText(_translate("MainWindow", "Consultar Box"))
+        self.updatenum.setText(_translate("MainWindow", "Atualizar Dados"))
         self.menuMenu.setTitle(_translate("MainWindow", "Menu"))
         self.menuOp_es.setTitle(_translate("MainWindow", "Opções"))
         self.actionCadastrar_Entrada.setText(_translate("MainWindow", "Cadastrar Entrada"))
@@ -451,6 +457,11 @@ class Ui_MainWindow(object):
         self.DtEntrada.setText(_translate("Form", "D. Entrada"))
         self.HrEntrada.setText(_translate("Form", "H. Entrada"))
 
+    def getpercent(self, ttl):
+        percent = ttl / 40 * 100
+        #print(len(self.boxusos))
+        return percent
+
     # DEFINE A COR DA CAIXA DE NUMERO DO BOX
     def SetColorRedBox(self, boxgerado): # UTILIZADA NO BOTAO CADASTRAR ENTRADA
         #box = boxgerado # alterar depois para retorno do entradaui.pycom Nº do BOX
@@ -461,22 +472,22 @@ class Ui_MainWindow(object):
         # box = box_gen() # alterar depois para consulta banco
         self.labels[boxgerado].setStyleSheet("background-color: rgb(0, 170, 0); font: 75 12pt \"MS Shell Dlg 2\";")
 
+    # PINTAR BOX EM UTILIZAÇÃO NA INICIALIZAÇÃO
+    def SetColorUtilBox(self):
+        ttl = len(self.boxusos)
+        self.percent = self.getpercent(ttl)
+        for x in range(ttl):
+            self.SetColorRedBox(str(self.boxusos[x]))
 
     # INICIALIZA AQ CLASSE ENTRADA PARA CADASTRAR A ENTRADA
     # ERA PRA CARREGAR A CLASSE COMO ESTA NO UI_ENTRADA...
     # MAS NAO ESTA EFETUANDO AS MESMAS FUNCIONALIDADES QUE EXECUTAR NO PROPRIO ARQUIVO.
     def initEntradaUi(self):
         Form.showNormal()
-        self.getPlaca.setText(placa_gen())  ######### JÁ VEM COM A PLACA PREENCHIDA ####################
-        self.getBox.setText(box_gen())  ######### JÁ VEM COM A BOX PREENCHIDA ####################
-        self.getDtEntrada.setText(dt_gen())
+        self.getPlaca.setText(placa_gen())   ######### JÁ VEM COM A PLACA PREENCHIDA ####################
+        self.getBox.setText(box_gen())       ######### JÁ VEM COM A BOX PREENCHIDA ####################
+        self.getDtEntrada.setText(dt_gen())  ######### JÁ VEM COM A DATA DE ENTRADA PREENCHIDA ####################
         self.getHrEntrada.setText(hm_gen())  ######### JÁ VEM COM A HORA DE ENTRADA PREENCHIDA ####################
-
-    # FUNÇÃO BUSCA O NUMERO DO BOX GERADO NA CLASSE DE ENTRADA
-    # E TROCA A COR DE VERDE PARA VERMELHO DE OCUPADO
-    def confirmaEntrada(self):
-        #self.SetColorRedBox(self.boxteste["box"])
-        pass
 
     # INICIALIZA AQ CLASSE ENTRADA PARA CADASTRAR A SAIDA DOS AUTOMOVEIS
     def initSaidaUi(self):
@@ -497,31 +508,16 @@ class Ui_MainWindow(object):
 
     # FUNÇÃO PARA INSERIR DADOS NO BANCO
     def inserirDados(self, itensDicio):
-        # Nesta função criei um banco interno a este arquivo,
-        # ou seja, o banco esta rodando tudo dentro desta função
-        db = sqlite3.connect('bancoEstacionamento.db')
-
-        ### PRINT DE TESTE ###
-        print(itensDicio)
-        ### PRINT DE TESTE ###
-
-        db.cursor()
-        db.execute("""INSERT INTO placas (
-                          placa,
-                          d_entrada,
-                          h_entrada,
-                          box_util
-                      )
-                      VALUES (?,?,?,?)
-                      """,
-                   (itensDicio['placa'], itensDicio['d_entrada'], itensDicio['h_entrada'], itensDicio['box']))
-        db.commit()
-        db.close()
+        insert = Database("bancoEstacionamento.db")
+        insert.insertDados(itensDicio)
 
     # Busca os dados criados para entrada do automovel
     def getinfo(self):
         self.itensDicio = {"placa": self.getPlaca.text(), "box": self.getBox.text(), "d_entrada" : self.getDtEntrada.text(), "h_entrada" : self.getHrEntrada.text()}
         return self.itensDicio
+
+    def testando(self):
+        self.SetColorUtilBox()
 
 if __name__ == "__main__":
     import sys

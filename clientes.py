@@ -1,7 +1,5 @@
 # ARQUIVO PARA DEFINIR A INSERÇÃO E EXCLUSÃO DE CLIENTES
 
-from banco import Banco
-
 class Placas(object):
     def __init__(self, placa = "", d_entrada = "", h_entrada = "", d_saida = "", h_saida ="",
                      v_pago = "", nv_uti = ""):
